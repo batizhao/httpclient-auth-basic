@@ -95,5 +95,13 @@ httpclient-auth-basic 是一个使用 [Apache HttpComponents](http://hc.apache.o
 如果项目中使用了 `Spring Security`，并且配置了 `auto-config = "true"` ，会和 Apache 的 basic auth 冲突，
 需要改成 `auto-config = "false"`。
 
+使用 `Java` 客户端访问 `https://localhost`
+-------------------------------------------------------
 
+浏览器导出客户端证书文件 my.cer
 
+导入 keystore
+
+    # keytool -import -noprompt -keystore /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/security/cacerts -storepass changeit -alias apache -file my.cer
+    
+待续...
