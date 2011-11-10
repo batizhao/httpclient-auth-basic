@@ -33,7 +33,26 @@ httpclient-auth-basic 是一个使用 [Apache HttpComponents](http://hc.apache.o
 生成 self-signed SSL Certificate
 -------------------------------------------------------
 
-    # openssl req -new -x509 -nodes -out server.crt -keyout server.key
+    # openssl req -new -x509 -days 3650 -nodes -out server.crt -keyout server.key
+    Generating a 1024 bit RSA private key
+    .............................++++++
+    ..++++++
+    writing new private key to 'server.key'
+    -----
+    You are about to be asked to enter information that will be incorporated
+    into your certificate request.
+    What you are about to enter is what is called a Distinguished Name or a DN.
+    There are quite a few fields but you can leave some blank
+    For some fields there will be a default value,
+    If you enter '.', the field will be left blank.
+    -----
+    Country Name (2 letter code) [AU]:CN
+    State or Province Name (full name) [Some-State]:
+    Locality Name (eg, city) []:
+    Organization Name (eg, company) [Internet Widgits Pty Ltd]:
+    Organizational Unit Name (eg, section) []:
+    Common Name (eg, YOUR name) []:localhost
+    Email Address []:
 
 把生成的两个文件放到 `/private/etc/apache2/`，后边会用到。这个目录可自定义，能匹配就好。
 
@@ -98,10 +117,15 @@ httpclient-auth-basic 是一个使用 [Apache HttpComponents](http://hc.apache.o
 使用 `Java` 客户端访问 `https://localhost`
 -------------------------------------------------------
 
-浏览器导出客户端证书文件 my.cer
+通过 IE 浏览器导出客户端证书文件 my.cer
 
+    ＊＊＊＊
+生成 keystore
+
+    sudo keytool -genkey -v -validity 3650 -keystore my.keystore
+    
 导入 keystore
 
-    # keytool -import -noprompt -keystore /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/security/cacerts -storepass changeit -alias apache -file my.cer
+    # keytool -import -noprompt -keystore my.keystore -storepass changeit -alias apache -file my.cer
     
 待续...
