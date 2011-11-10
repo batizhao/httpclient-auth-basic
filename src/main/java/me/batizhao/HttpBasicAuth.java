@@ -34,10 +34,8 @@ public class HttpBasicAuth {
                 System.out.println("Response content length: " + entity.getContentLength());
             }
             EntityUtils.consume(entity);
+
         } finally {
-            // When HttpClient instance is no longer needed,
-            // shut down the connection manager to ensure
-            // immediate deallocation of all system resources
             httpclient.getConnectionManager().shutdown();
         }
 

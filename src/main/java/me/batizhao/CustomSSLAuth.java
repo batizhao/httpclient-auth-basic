@@ -39,7 +39,7 @@ import java.security.cert.X509Certificate;
  */
 public class CustomSSLAuth {
 
-    public static void wrapClient() throws KeyStoreException, IOException, NoSuchAlgorithmException, KeyManagementException, UnrecoverableKeyException, CertificateException {
+    public void getHttpsStatus() throws KeyStoreException, IOException, NoSuchAlgorithmException, KeyManagementException, UnrecoverableKeyException, CertificateException {
 
         DefaultHttpClient httpclient = new DefaultHttpClient();
         try {
@@ -74,16 +74,12 @@ public class CustomSSLAuth {
             EntityUtils.consume(entity);
 
         } finally {
-            // When HttpClient instance is no longer needed,
-            // shut down the connection manager to ensure
-            // immediate deallocation of all system resources
             httpclient.getConnectionManager().shutdown();
         }
     }
 
-
-
     public static void main(String[] args) throws Exception {
-        CustomSSLAuth.wrapClient();
+        CustomSSLAuth sslAuth = new CustomSSLAuth();
+        sslAuth.getHttpsStatus();
     }
 }
