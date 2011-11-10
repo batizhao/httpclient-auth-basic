@@ -2,7 +2,10 @@
 ============================================================
 
 httpclient-auth-basic 是一个使用 [Apache HttpComponents](http://hc.apache.org/httpcomponents-client-ga/) ，
-访问 Basic Authentication 的示例。
+访问 HTTP Basic 认证的示例。
+
+HTTP Basic 认证方式使用 base64 编码方式传送用户名和密码，而 base64 仅仅是一种公开的编码格式而非加密措施，
+因而如果信道本身不使用 SSL 等安全协议，用户密码较容易被截获。
 
 在代码中主要演示了 HTTP 和 HTTPS 两种方式。涉及到的技术有 Apache HTTP Server 配置、SSL/TLS/OpenSSL、keytool、证书、
 加密解密方面的一些基础知识。
@@ -21,7 +24,7 @@ httpclient-auth-basic 是一个使用 [Apache HttpComponents](http://hc.apache.o
 
 使用 Apache 自带工具，按提示输入密码：
 
-    # htpasswd -c /usr/local/apache/passwd/passwords admin
+    # htpasswd -c /usr/local/apache2/passwd/passwords admin
     New password: admin
     Re-type new password: admin
     Adding password for user admin
@@ -84,6 +87,7 @@ httpclient-auth-basic 是一个使用 [Apache HttpComponents](http://hc.apache.o
     NameVirtualHost *:443
     
     <VirtualHost *:443>
+    
         ServerName localhost
         ErrorLog "/private/var/log/apache2/sites-error_log"
         CustomLog "/private/var/log/apache2/sites-access_log" common
@@ -122,10 +126,10 @@ httpclient-auth-basic 是一个使用 [Apache HttpComponents](http://hc.apache.o
     ＊＊＊＊
 生成 keystore
 
-    sudo keytool -genkey -v -validity 3650 -keystore my.keystore
+    sudo keytool -genkey -v -keystore my.keystore
     
 导入 keystore
 
-    # keytool -import -noprompt -keystore my.keystore -storepass changeit -alias apache -file my.cer
+    # keytool -import -noprompt -keystore my.keystore -storepass 123456 -alias apache -file my.cer
     
 待续...
