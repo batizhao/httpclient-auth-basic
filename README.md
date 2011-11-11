@@ -57,6 +57,7 @@ HTTP Basic 认证方式使用 base64 编码方式传送用户名和密码，而 
     Common Name (eg, YOUR name) []:localhost
     Email Address []:
 
+`Common Name` 要使用你的域名或 IP 。
 把生成的两个文件放到 `/private/etc/apache2/`，后边会用到。这个目录可自定义，能匹配就好。
 
 配置虚拟主机，代理 App Server
@@ -124,9 +125,32 @@ HTTP Basic 认证方式使用 base64 编码方式传送用户名和密码，而 
 通过 IE 浏览器导出客户端证书文件 my.cer
 
     ＊＊＊＊
-生成 keystore
+生成 keystore，最重要的是 `您的名字与姓氏是什么` 和 服务端的 `Common Name` 要保持一致，并且都使用你要访问的域名或 IP ，
+否则会抛出 `javax.net.ssl.SSLException: hostname in certificate didn't match: <localhost> != <***>`
 
     sudo keytool -genkey -v -keystore my.keystore
+    输入keystore密码：123456  
+    再次输入新密码: 123456
+    您的名字与姓氏是什么？
+      [Unknown]：  localhost
+    您的组织单位名称是什么？
+      [Unknown]：  sh
+    您的组织名称是什么？
+      [Unknown]：  sh
+    您所在的城市或区域名称是什么？
+      [Unknown]：  sh
+    您所在的州或省份名称是什么？
+      [Unknown]：  sh
+    该单位的两字母国家代码是什么
+      [Unknown]：  CN
+    CN=localhost, OU=sh, O=sh, L=sh, ST=sh, C=CN 正确吗？
+      [否]：  Y
+    
+    正在为以下对象生成 1,024 位 DSA 密钥对和自签名证书 (SHA1withDSA)（有效期为 3,650 天）:
+             CN=localhost, OU=sh, O=sh, L=sh, ST=sh, C=CN
+    输入<mykey>的主密码
+            （如果和 keystore 密码相同，按回车）：  
+    [正在存储 my.keystore]
     
 导入 keystore
 
