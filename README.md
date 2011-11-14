@@ -58,7 +58,7 @@ HTTP Basic 认证方式使用 base64 编码方式传送用户名和密码，而 
     Email Address []:
 
 `Common Name` 要使用你的域名或 IP 。
-把生成的两个文件放到 `/private/etc/apache2/`，后边会用到。这个目录可自定义，能匹配就好。
+把生成的两个文件放到 `/private/etc/apache2/`，后边会用到。这个目录可自定义，能匹配就好。重新生成证书要重启 Apache。
 
 配置虚拟主机，代理 App Server
 -------------------------------------------------------
@@ -122,13 +122,13 @@ HTTP Basic 认证方式使用 base64 编码方式传送用户名和密码，而 
 使用 `Java` 客户端访问 `https://localhost`
 -------------------------------------------------------
 
-通过 IE 浏览器导出客户端证书文件 my.cer
+通过 IE 浏览器导出客户端证书文件 my.cer。`下边这张图片需要可以访问 Dropbox 才可以看到`
+![导出证书](http://dl.dropbox.com/u/1682099/images/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202011-11-14%20%E4%B8%8A%E5%8D%889.43.44.png)
 
-    ＊＊＊＊
 生成 keystore，最重要的是 `您的名字与姓氏是什么` 和 服务端的 `Common Name` 要保持一致，并且都使用你要访问的域名或 IP ，
-否则会抛出 `javax.net.ssl.SSLException: hostname in certificate didn't match: <localhost> != <***>`
+否则会抛出异常 `javax.net.ssl.SSLException: hostname in certificate didn't match: <localhost> != <***>`
 
-    sudo keytool -genkey -v -keystore my.keystore
+    # keytool -genkey -v -keystore my.keystore
     输入keystore密码：123456  
     再次输入新密码: 123456
     您的名字与姓氏是什么？
@@ -156,4 +156,6 @@ HTTP Basic 认证方式使用 base64 编码方式传送用户名和密码，而 
 
     # keytool -import -noprompt -keystore my.keystore -storepass 123456 -alias apache -file my.cer
     
-待续...
+修改 CustomSSLAuth ，把路径指向你自己的 keystore 文件，把密码改为 `storepass` 参数指定的值，看到以下内容就说明成功了。
+
+    HTTP/1.1 200 OK
