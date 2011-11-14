@@ -28,12 +28,15 @@ public class CustomSSLAuth {
 
         DefaultHttpClient httpclient = new DefaultHttpClient();
         try {
-            KeyStore trustStore  = KeyStore.getInstance(KeyStore.getDefaultType());
+            KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
             FileInputStream instream = new FileInputStream(new File("/Users/zyb/Downloads/my.keystore"));
             try {
                 trustStore.load(instream, "123456".toCharArray());
             } finally {
-                try { instream.close(); } catch (Exception ignore) {}
+                try {
+                    instream.close();
+                } catch (Exception ignore) {
+                }
             }
 
             SSLSocketFactory socketFactory = new SSLSocketFactory(trustStore);
@@ -55,7 +58,13 @@ public class CustomSSLAuth {
             System.out.println(response.getStatusLine());
             if (entity != null) {
                 System.out.println("Response content length: " + entity.getContentLength());
+                System.out.println("----------------------------------------");
+                long len = entity.getContentLength();
+                if (len != -1 && len < 10000) {
+                    System.out.println(EntityUtils.toString(entity));
+                }
             }
+
             EntityUtils.consume(entity);
 
         } finally {

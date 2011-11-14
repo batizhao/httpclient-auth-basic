@@ -33,7 +33,13 @@ public class HttpBasicAuth {
             System.out.println(response.getStatusLine());
             if (entity != null) {
                 System.out.println("Response content length: " + entity.getContentLength());
+                System.out.println("----------------------------------------");
+                long len = entity.getContentLength();
+                if (len != -1 && len < 10000) {
+                    System.out.println(EntityUtils.toString(entity));
+                }
             }
+
             EntityUtils.consume(entity);
 
         } finally {
