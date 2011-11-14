@@ -14,7 +14,7 @@ HTTP Basic 认证方式使用 base64 编码方式传送用户名和密码，而 
 -------------------------------------------------------
 
 在某些企业应用环境中，需要把前端的 Web Server 放到公网上，用来代理内部的 App Server。但是又不希望完全暴露在外网。
-所以，需要进行认证和加密。先通过 Apache 的 basic auth 的认证，才能进入到内部系统的登录界面。
+所以，需要进行认证和加密。先通过 Apache 的 basic auth 认证，才能进入到内部系统的登录界面。
 这里使用了 Apache HTTP Server 的 
 [mod_auth_basic](http://httpd.apache.org/docs/2.2/mod/mod_auth_basic.html) 和 
 [mod_ssl](http://httpd.apache.org/docs/2.2/mod/mod_ssl.html) 两个模块。
@@ -128,7 +128,7 @@ HTTP Basic 认证方式使用 base64 编码方式传送用户名和密码，而 
 生成 keystore，最重要的是 `您的名字与姓氏是什么` 和 服务端的 `Common Name` 要保持一致，并且都使用你要访问的域名或 IP ，
 否则会抛出异常 `javax.net.ssl.SSLException: hostname in certificate didn't match: <localhost> != <***>`
 
-    # keytool -genkey -v -keystore my.keystore
+    # keytool -genkey -v -validity 3650 -keystore my.keystore
     输入keystore密码：123456  
     再次输入新密码: 123456
     您的名字与姓氏是什么？
