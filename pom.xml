@@ -16,13 +16,14 @@
         <slf4j.version>1.6.1</slf4j.version>
     </properties>
 
+    <developers>
+        <developer>
+            <name>batizhao</name>
+            <email>zhaobati@gmail.com</email>
+        </developer>
+    </developers>
+
     <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.8.1</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
