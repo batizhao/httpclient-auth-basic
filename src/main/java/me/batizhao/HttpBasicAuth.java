@@ -11,6 +11,7 @@ import org.apache.http.util.EntityUtils;
 /**
  * @author: batizhao
  * @since: 11-11-7 下午4:39
+ * Source Code: http://hc.apache.org/httpcomponents-client-ga/examples.html [Client authentication]
  */
 public class HttpBasicAuth {
 
