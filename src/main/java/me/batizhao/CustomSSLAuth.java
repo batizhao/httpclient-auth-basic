@@ -44,9 +44,9 @@ public class CustomSSLAuth {
         DefaultHttpClient httpclient = new DefaultHttpClient();
         try {
             KeyStore trustStore  = KeyStore.getInstance(KeyStore.getDefaultType());
-            FileInputStream instream = new FileInputStream(new File("/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/security/cacerts"));
+            FileInputStream instream = new FileInputStream(new File("/Users/zyb/Downloads/my.keystore"));
             try {
-                trustStore.load(instream, "changeit".toCharArray());
+                trustStore.load(instream, "123456".toCharArray());
             } finally {
                 try { instream.close(); } catch (Exception ignore) {}
             }
