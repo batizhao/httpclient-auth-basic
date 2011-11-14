@@ -165,9 +165,7 @@ HTTP Basic 认证方式使用 base64 编码方式传送用户名和密码，而 
 
 在 JDK 中，已经有一个 keystore 文件 cacerts 。
 在 Mac 中，这个文件大概的位置在 `/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/security/cacerts` ，
-默认密码为 `changeit`，这样可以直接使用 `keytool -import` 命令导入客户端证书。
-
-    # keytool -import -noprompt -keystore /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/security/cacerts -storepass changeit -alias apache -file my.cer
+默认密码为 `changeit`，这样可以直接使用 `keytool -import` 命令导入客户端证书，而不用生成自己的 `my.keystore` 。
 
 删除证书
 
