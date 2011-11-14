@@ -121,8 +121,8 @@ HTTP Basic 认证方式使用 base64 编码方式传送用户名和密码，而 
 
 使用 `Java` 客户端访问 `https://localhost`
 -------------------------------------------------------
-
-通过 IE 浏览器导出客户端证书文件 my.cer。`下边这张图片需要可以访问 Dropbox 才可以看到`
+`以下步骤需要在客户端执行`。首先，
+通过 IE 浏览器导出客户端证书文件 my.cer 。`下边这张图片需要可以访问 Dropbox 才可以看到`
 ![导出证书](http://dl.dropbox.com/u/1682099/images/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202011-11-14%20%E4%B8%8A%E5%8D%889.43.44.png)
 
 生成 keystore，最重要的是 `您的名字与姓氏是什么` 和 服务端的 `Common Name` 要保持一致，并且都使用你要访问的域名或 IP ，
@@ -134,20 +134,20 @@ HTTP Basic 认证方式使用 base64 编码方式传送用户名和密码，而 
     您的名字与姓氏是什么？
       [Unknown]：  localhost
     您的组织单位名称是什么？
-      [Unknown]：  sh
+      [Unknown]：  
     您的组织名称是什么？
-      [Unknown]：  sh
+      [Unknown]：  
     您所在的城市或区域名称是什么？
-      [Unknown]：  sh
+      [Unknown]：  
     您所在的州或省份名称是什么？
-      [Unknown]：  sh
+      [Unknown]：  
     该单位的两字母国家代码是什么
       [Unknown]：  CN
-    CN=localhost, OU=sh, O=sh, L=sh, ST=sh, C=CN 正确吗？
+    CN=localhost, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=CN 正确吗？
       [否]：  Y
     
-    正在为以下对象生成 1,024 位 DSA 密钥对和自签名证书 (SHA1withDSA)（有效期为 3,650 天）:
-             CN=localhost, OU=sh, O=sh, L=sh, ST=sh, C=CN
+    正在为以下对象生成 1,024 位 DSA 密钥对和自签名证书 (SHA1withDSA)（有效期为 90 天）:
+             CN=localhost, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=CN
     输入<mykey>的主密码
             （如果和 keystore 密码相同，按回车）：  
     [正在存储 my.keystore]
@@ -159,3 +159,21 @@ HTTP Basic 认证方式使用 base64 编码方式传送用户名和密码，而 
 修改 CustomSSLAuth ，把路径指向你自己的 keystore 文件，把密码改为 `storepass` 参数指定的值，看到以下内容就说明成功了。
 
     HTTP/1.1 200 OK
+
+补充说明
+-------------------------------------------------------
+
+在 JDK 中，已经有一个 keystore 文件 cacerts 。
+在 Mac 中，这个文件大概的位置在 `/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/security/cacerts` ，
+默认密码为 `changeit`，这样可以直接使用 `keytool -import` 命令导入客户端证书。
+
+    # keytool -import -noprompt -keystore /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/security/cacerts -storepass changeit -alias apache -file my.cer
+
+删除证书
+
+    # keytool -delete -alias apache -keystore my.keystore -storepass 123456
+    
+查看证书
+
+    # keytool -list -v -alias apache -keystore my.keystore -storepass 123456
+
