@@ -146,7 +146,7 @@ HTTP Basic 认证方式使用 base64 编码方式传送用户名和密码，而 
     CN=localhost, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=CN 正确吗？
       [否]：  Y
     
-    正在为以下对象生成 1,024 位 DSA 密钥对和自签名证书 (SHA1withDSA)（有效期为 90 天）:
+    正在为以下对象生成 1,024 位 DSA 密钥对和自签名证书 (SHA1withDSA)（有效期为 3650 天）:
              CN=localhost, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=CN
     输入<mykey>的主密码
             （如果和 keystore 密码相同，按回车）：  
